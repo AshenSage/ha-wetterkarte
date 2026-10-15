@@ -1,0 +1,12 @@
+type: custom:arandjelovac-weather-card
+title: Aranđelovac
+default_tab: days
+daily_entity: sensor.arandjelovac_wetter_konsens
+hourly_entity: sensor.arandjelovac_wetter_stunden
+weather_entities:
+  - weather.arandjelovac
+  - weather.forecast_home
+  - weather.tomorrow_io_arandjelovac_daily
+grid_options:
+  columns: 12
+  rows: auto

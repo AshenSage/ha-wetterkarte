@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import { readFileSync, existsSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
+const hacs = JSON.parse(readFileSync('hacs.json', 'utf8'));
+assert.match(pkg.version, /^\d+\.\d+\.\d+$/, 'Nur normale stabile Versionsnummern veröffentlichen.');
+assert.equal(hacs.filename, `${pkg.name}.js`);
+assert.equal(hacs.render_readme, true);
+assert.ok(existsSync(`dist/${hacs.filename}`));
+assert.ok(existsSync('README.md'));
+assert.ok(existsSync('RELEASE_NOTES.md'));
+const card = readFileSync(`dist/${hacs.filename}`, 'utf8');
+assert.ok(!card.includes('__BACKEND_TEMPLATE__'), 'Backend-Vorlage muss eingebettet sein.');
+assert.ok(card.includes('arandjelovac-weather-card'), 'Kartenname für bestehende YAML beibehalten.');
+execFileSync(process.execPath, ['--check', `dist/${hacs.filename}`], { stdio: 'inherit' });
+console.log(`Wetterkarte ${pkg.version}: JavaScript und HACS-Paket geprüft.`);

@@ -1,0 +1,9 @@
+{
+  "name": "ha-wetterkarte",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mobile Wetterkarte für Home Assistant mit Stunden- und Wochenansicht sowie Wetterkonsens aus mehreren Quellen.",
+  "scripts": {
+    "check": "node scripts/validate.mjs"
+  }
+}
